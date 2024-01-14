@@ -11,3 +11,61 @@
   background-color: #f2dede;
   border-color: #eed3d7;
 }
+
+/* form stylings */
+/* .goals-table {
+  margin: 10 auto;
+  width: 100%;
+}
+
+.sub-goals {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.goals-text {
+  width: 15rem;
+  margin: 0 auto;
+} */
+
+.goals-header {
+  width: 80%;
+  margin: auto;
+  padding: 20px 0;
+}
+
+.goals-header h3 {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.goals-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sub-goals {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sub-goals p {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.goal-text, .goal-amount {
+  flex: 2;
+  margin-right: 20px;
+}
+
+/* .goal-text textarea, .goal-amount input {
+  width: 100%;
+} */
+
+/* button {
+  display: block;
+  margin: 20px auto;
+} */

@@ -8,7 +8,7 @@ from .forms import GoalsForm
 # your stuff
 
 class GoalsPageView(FormView):
-    template_name = "goals.html"
+    template_name = "goals/goals.html"
     model = Goals
     form_class = GoalsForm
 
@@ -19,7 +19,7 @@ class GoalsPageView(FormView):
 
 class GoalsDetailView(UpdateView):
     model = Goals
-    template_name = "goals_detail.html"
+    template_name = "goals/goals_detail.html"
     form_class = GoalsForm
 
     def get_success_url(self):

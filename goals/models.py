@@ -6,14 +6,14 @@ from django.contrib.auth.models import User
 
 class Goals(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    once_a_month = models.CharField(max_length=255)
-    once_a_month_amount = models.IntegerField()
-    once_a_quarter = models.CharField(max_length=255)
-    once_a_quarter_amount = models.IntegerField()
-    once_a_year = models.CharField(max_length=255)
-    once_a_year_amount = models.IntegerField()
-    once_every_five_years = models.CharField(max_length=255)
-    once_every_five_years_amount = models.IntegerField()
+    once_a_month = models.CharField(max_length=255, blank=True)
+    once_a_month_amount = models.IntegerField(blank=True)
+    once_a_quarter = models.CharField(max_length=255, blank=True)
+    once_a_quarter_amount = models.IntegerField(blank=True)
+    once_a_year = models.CharField(max_length=255, blank=True)
+    once_a_year_amount = models.IntegerField(blank=True)
+    once_every_five_years = models.CharField(max_length=255, blank=True)
+    once_every_five_years_amount = models.IntegerField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
