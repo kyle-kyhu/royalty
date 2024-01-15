@@ -1,3 +1,12 @@
 {% extends "base.html" %}
 
+{% block title %}Home{% endblock title %}
 
+{% block content %}
+<h2>Menu</h2>
+<a href="{% url 'goals:goals' %}">Add Goals</a>
+<!-- Check if goals is not None and has a pk attribute -->
+
+<!-- <a href="{% url 'goals:goals_update' object.pk %}">Edit</a> -->
+
+{% endblock content %}
