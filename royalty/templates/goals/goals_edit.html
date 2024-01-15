@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Goal Detail{% endblock title %}
+
+{% block content %}
+<div class="goals-header">
+    <h3>Goal Detail</h3>
+    <table class="goals-table">
+        <tbody class="goals-body">
+            <div class="sub-goals">
+                <p>Once a month: {{ goals.once_a_month }}</p>
+                <p>Once a month amount: {{ goals.once_a_month_amount }}</p>
+            </div>
+            <div class="sub-goals">
+                <p>Once a quarter: {{ goals.once_a_quarter }}</p>
+                <p>Once a quarter amount: {{ goals.once_a_quarter_amount }}</p>
+            </div>
+            <div class="sub-goals">
+                <p>Once a year: {{ goals.once_a_year }}</p>
+                <p>Once a year amount: {{ goals.once_a_year_amount }}</p>
+            </div>
+            <div class="sub-goals">
+                <p>Once every five years: {{ goals.once_every_five_years }}</p>
+                <p>Once every five years amount: {{ goals.once_every_five_years_amount }}</p>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </tbody>
+    </table>
+</div> 
+{% endblock content %}

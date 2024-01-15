@@ -3,10 +3,9 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-<h2>Menu</h2>
-<a href="{% url 'goals:goals' %}">Add Goals</a>
-<!-- Check if goals is not None and has a pk attribute -->
-
-<!-- <a href="{% url 'goals:goals_update' object.pk %}">Edit</a> -->
-
+<h2>Welcome to Royalty!</h2>
+<p>Choose to add your goals, watch videos or events, or use our tools.</p>
+    <a href="{% url 'goals:goals_list' %}">Add Goals</a>
+    <a href="{% url 'goals:goals_edit' goals.pk %}">Edit Goals</a>
+   
 {% endblock content %}
