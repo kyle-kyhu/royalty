@@ -49,7 +49,16 @@ class GoalsUpdateView(LoginRequiredMixin, UpdateView):
     '''edit goals'''
     model = Goals
     template_name = "goals/goals_edit.html"
-    fields = '__all__'
+    fields = (
+        'once_a_month',
+        'once_a_month_amount',
+        'once_a_quarter',
+        'once_a_quarter_amount',
+        'once_a_year',
+        'once_a_year_amount',
+        'once_every_five_years',
+        'once_every_five_years_amount',
+    )
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -57,7 +66,7 @@ class GoalsUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse('goals:goals_edit', kwargs={'pk': self.object.pk})
+        return reverse('goals:goals_list')
     
 class GoalsDeleteView(LoginRequiredMixin, DeleteView):
     '''delete goals'''

@@ -5,11 +5,13 @@
 {% block content %}
 <h2>Welcome to Royalty!</h2>
 <p>Choose to add your goals, watch videos or events, or use our tools.</p>
+
 {% if user.is_authenticated %}
-    <a href="{% url 'goals:goals_add' %}">Add Goals</a>
-<!-- {% for goal in goals %} -->
-    <a href="{% url 'goals:goals_edit' pk=goal.pk %}">Edit Goals</a>
-<!-- {% endfor %} -->
+    {% if goals %}
+        <a href="{% url 'goals:goals_add' %}">Add Goals</a>
+    {% else %}
+        <a href="{% url 'goals:goals_list' %}">View Goals</a>
+    {% endif %}
 {% else %}
     <a href="{% url 'account_login' %}">Login</a> |
     <a href="{% url 'account_signup' %}">Signup</a>
