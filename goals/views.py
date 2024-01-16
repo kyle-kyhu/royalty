@@ -1,17 +1,22 @@
-from typing import Any
+
 from django.urls import reverse
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import ImproperlyConfigured
 from .models import Goals
 from .forms import GoalsForm
 
 
-class GoalsAddView(CreateView):
+class GoalsAddView(LoginRequiredMixin,CreateView):
     '''Add a new goal'''
     template_name = "goals/goals_add.html"
     model = Goals
     form_class = GoalsForm
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().post(request, *args, **kwargs)
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -21,37 +26,31 @@ class GoalsAddView(CreateView):
     def get_success_url(self):
         return reverse('home')
 
-class GoalsListView(ListView):
+class GoalsListView(LoginRequiredMixin, ListView):
     '''List all goals'''
     model = Goals
     template_name = "goals/goals_list.html"
     context_object_name = 'goals'
-    paginate_by = 10
 
     def get_queryset(self):
         if self.request.user.is_authenticated:
-            return Goals.objects.filter(user=self.request.user)
+            return Goals.objects.filter(user=self.request.user).order_by('-created_at')
         else:
             return Goals.objects.none()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['goal'] = context['object_list'].first() if context['object_list'] else None
+        return context
+    
 
-class GoalsUpdateView(UpdateView):
+
+class GoalsUpdateView(LoginRequiredMixin, UpdateView):
     '''edit goals'''
     model = Goals
     template_name = "goals/goals_edit.html"
-    fields = (
-        '__all__',
-        # individual fields
-        # 'once_a_month',
-        # 'once_a_month_amount',
-        # 'once_a_quarter',
-        # 'once_a_quarter_amount',
-        # 'once_a_year',
-        # 'once_a_year_amount',
-        # 'once_every_five_years',
-        # 'once_every_five_years_amount',
-    )
-
+    fields = '__all__'
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['goals'] = Goals.objects.get(pk=self.kwargs['pk'])
@@ -60,7 +59,7 @@ class GoalsUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('goals:goals_edit', kwargs={'pk': self.object.pk})
     
-class GoalsDeleteView(DeleteView):
+class GoalsDeleteView(LoginRequiredMixin, DeleteView):
     '''delete goals'''
     model = Goals
     template_name = "goals/goals_delete.html"

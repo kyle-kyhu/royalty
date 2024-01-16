@@ -3,29 +3,36 @@
 {% block title %}Goal List{% endblock title %}
 
 {% block content %}
+<h2>goals_list.html</h2>
 <h2>Here are you goals</h2>
+{% if goal %}
+
 <div class="goals-header">
     <h3>Goal Detail</h3>
     <table class="goals-table">
         <tbody class="goals-body">
             <div class="sub-goals">
-                <p>Once a month: {{ goals.once_a_month }}</p>
-                <p>Once a month amount: {{ goals.once_a_month_amount }}</p>
+                <p>Once a month: {{ goal.once_a_month }}</p>
+                <p>Once a month amount: {{ goal.once_a_month_amount }}</p>
             </div>
             <div class="sub-goals">
-                <p>Once a quarter: {{ goals.once_a_quarter }}</p>
-                <p>Once a quarter amount: {{ goals.once_a_quarter_amount }}</p>
+                <p>Once a quarter: {{ goal.once_a_quarter }}</p>
+                <p>Once a quarter amount: {{ goal.once_a_quarter_amount }}</p>
             </div>
             <div class="sub-goals">
-                <p>Once a year: {{ goals.once_a_year }}</p>
-                <p>Once a year amount: {{ goals.once_a_year_amount }}</p>
+                <p>Once a year: {{ goal.once_a_year }}</p>
+                <p>Once a year amount: {{ goal.once_a_year_amount }}</p>
             </div>
             <div class="sub-goals">
-                <p>Once every five years: {{ goals.once_every_five_years }}</p>
-                <p>Once every five years amount: {{ goals.once_every_five_years_amount }}</p>
+                <p>Once every five years: {{ goal.once_every_five_years }}</p>
+                <p>Once every five years amount: {{ goal.once_every_five_years_amount }}</p>
             </div>
-            <a href="" class="btn btn-primary">Edit</a>
+            <a href="{% url 'goals:goals_edit' goal.pk %}" class="btn btn-primary">Edit</a>
         </tbody>
     </table>
 </div> 
+{% else %}
+    <p>No goals to display.</p>
+{% endif %}
+
 {% endblock content %}
