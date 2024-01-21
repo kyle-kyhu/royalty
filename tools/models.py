@@ -3,6 +3,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.contrib.auth.models import User
 
+from datetime import date
 
 class WillpowerTool(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -45,7 +46,7 @@ class PressureTool(models.Model):
 class OneThingTool(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     one_thing_description = models.CharField(max_length=255, blank=True)
-    one_thing_time = models.DateField()
+    one_thing_time = models.DateField(default=date.today, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

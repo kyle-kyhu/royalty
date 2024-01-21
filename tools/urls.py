@@ -7,7 +7,9 @@ from tools.views import (
     FlowToolView,
     FlowDetailView,
     PressureToolView,
-    PressureDetailView
+    PressureDetailView,
+    OneThingToolView,
+    OneThingDetailView,
 
 )
 
@@ -20,6 +22,8 @@ urlpatterns = [
     path("flow/<int:pk>/", FlowDetailView.as_view(), name="flow_detail"),
     path("pressure/", PressureToolView.as_view(), name="pressure"),
     path("pressure/<int:pk>/", PressureDetailView.as_view(), name="pressure_detail"),
+    path("onething/", OneThingToolView.as_view(), name="one_thing"),
+    path("onething/<int:pk>/", OneThingDetailView.as_view(), name="one_thing_detail"),
     path("dashboard/", ToolsDashboardView.as_view(), name="tools_dashboard"),
 ]
 

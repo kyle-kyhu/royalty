@@ -78,11 +78,20 @@ class PressureDetailView(LoginRequiredMixin, UpdateView):
     template_name = 'tools/pressure_detail.html'
 
 
-# class OneThingToolView(UpdateView):
-#     model = OneThingTool
-#     template_name = 'tools/tools_detail.html'
-#     form_class = OneThingToolForm
-
+class OneThingToolView(LoginRequiredMixin,CreateView):
+    model = OneThingTool
+    form_class = OneThingToolForm
+    template_name = 'tools/one_thing.html'
+    success_url = reverse_lazy('tools:tools_list')
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+class OneThingDetailView(LoginRequiredMixin, UpdateView):
+    model = OneThingTool
+    form_class = OneThingToolForm
+    template_name = 'tools/one_thing_detail.html'
 
 class ToolsDashboardView(ListView):
     model = WillpowerTool, FlowTool, PressureTool, OneThingTool
