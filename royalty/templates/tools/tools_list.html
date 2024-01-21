@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Tool List{% endblock title %}
+
+
+{% block content %}
+<h3>tools_list.html</h3>
+<ul>
+    <li><a href="{% url 'tools:willpower' %}">Willpower</a></li>
+    <li><a href="{% url 'tools:flow' %}">Flow</a></li> 
+    <li><a href="{% url 'tools:pressure' %}">Pressure</a></li>
+
+</ul>
+
+
+{% endblock content %}

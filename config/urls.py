@@ -18,6 +18,8 @@ urlpatterns = [
     # Your stuff: custom urls includes go here
     path("__reload__/", include("django_browser_reload.urls")),
     path("goals/", include("goals.urls", namespace="goals")),
+    path("event/", include("event.urls", namespace="event")),
+    path("tools/", include("tools.urls", namespace="tools")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # API URLS
