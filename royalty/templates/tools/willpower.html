@@ -1,17 +1,270 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
+{% load static %}
 
-{% block title %}willpower Detail{% endblock title %}
+{% block title %}Willpower Detail{% endblock title %}
 
 {% block content %}
-<h2>willpower.html</h2>
+<h2>Willpower</h2>
+<h2>Rate the Water Level</h2>
+    <!-- <form method="post" id="ratingForm">
+        {% csrf_token %}
+        {{ form.description }}
+        <input class="slider" type="range" min="1" max="5" value="{{ form.instance.willpower_rating }}" id="myRange">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
 
-<form method="post" action="">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <button type="submit" class="btn btn-primary">Save</button>
+    <div class="circle" id="ratingCircle"></div>
+
+    <script>
+        // Get the rating form and circle element
+        const ratingForm = document.getElementById('ratingForm');
+        const ratingCircle = document.getElementById('ratingCircle');
+
+        // Add an event listener to the form to update the circle color on rating change
+        ratingForm.addEventListener('input', function () {
+             // Get the selected rating
+            const selectedRating = document.getElementById('myRange').value;
+
+            // Update the circle color based on the rating
+            updateCircleColor(selectedRating);
+        });
+
+        // Function to update the circle color based on the rating
+        function updateCircleColor(rating) {
+            // Choose a color based on the rating (you can customize this)
+            let color;
+            let fillPercentage;
+
+        switch (parseInt(rating)) {
+            case 1:
+                color = 'blue';
+                fillPercentage = '20%';
+                break;
+            case 2:
+                color = 'blue';
+                fillPercentage = '40%';
+                break;
+            case 3:
+                color = 'blue';
+                fillPercentage = '60%';
+                break;
+            case 4:
+                color = 'blue';
+                fillPercentage = '80%';
+                break;
+            case 5:
+                color = 'blue';
+                fillPercentage = '100%';
+                break;
+            default:
+                color = 'gray';
+                fillPercentage = '0%';
+        }
+
+            // Update the circle background color
+            ratingCircle.style.backgroundColor = color;
+            ratingCircle.style.height = fillPercentage;
+        }
+    </script>
+
+
+<p> 
+-----------------
+here is my attempt to rendor with js
+-----------------
+</p> -->
+
+
+<!-- <div class="circle" id="ratingCircle">
+    <div class="water-level" id="waterLevel"></div>
+ </div>
+ <form method="post" id="ratingForm">
+     {% csrf_token %}
+    {{ form.description }}
+    <input class="slider" type="range" min="1" max="5" value="{{ form.instance.willpower_rating }}" id="myRange">
+   <button type="submit" class="btn btn-primary">Save</button>
 </form>
+
+<script>
+    // Get the rating form and circle element
+    const ratingForm = document.getElementById('ratingForm');
+    const waterLevel = document.querySelector('.waterLevel');
+
+    // Add an event listener to the form to update the water level on rating change
+    ratingForm.addEventListener('input', function () {
+        // Get the selected rating
+        const selectedRating = document.getElementById('myRange').value;
+
+        // Update the water level based on the rating
+        updateWaterLevel(selectedRating);
+    });
+
+    // Function to update the water level based on the rating
+    function updateWaterLevel(rating) {
+        // Choose a color based on the rating
+        let color;
+        let fillPercentage;
+
+        switch (parseInt(rating)) {
+            case 1:
+                color = 'blue';
+                fillPercentage = '20%';
+                break;
+            case 2:
+                color = 'blue';
+                fillPercentage = '40%';
+                break;
+            case 3:
+                color = 'blue';
+                fillPercentage = '60%';
+                break;
+            case 4:
+                color = 'blue';
+                fillPercentage = '80%';
+                break;
+            case 5:
+                color = 'blue';
+                fillPercentage = '100%';
+                break;
+            default:
+                color = 'gray';
+                fillPercentage = '0%';
+        }
+
+        // Update the styles of the water level
+        waterLevel.style.backgroundColor = color;
+        waterLevel.style.height = fillPercentage;
+    }
+ </script> -->
+
+
+
+
+<p>
+-----------------
+here is my attempt to rendor with chart.js
+-----------------
+</p>
+
+
+
+
+
+
+<div class="willpower-card">
+        <form class="willpower-form" method="post" action="">
+            <canvas id="myChart"></canvas>
+            <span>
+                <input class="slider" type="range" min="1" max="5" value="{{ form.instance.willpower_rating }}" id="myRange">
+            </span>
+            {% csrf_token %}
+            <div class="willpower-text">
+                <div>Enter Reason</div>
+                {{ form.description }}
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+</div>  
+
+<div class="willpower-recap">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Willpower Rating</th>
+                <th scope="col">Reason</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for willpower in willpowers %}
+            <tr>
+                <td>{{ willpower.willpower_rating }}</td>
+                <td>{{ willpower.description }}</td>
+                <td>{{ willpower.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var slider = document.getElementById("myRange");
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Willpower"],
+                datasets: [{
+                    label: "Willpower",
+                    data: [slider.value],
+                    backgroundColor: 'rgba(0, 123, 255, 0.5)',
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    borderWidth: 1,
+                    borderRsdius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 5,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+
+        slider.oninput = function() {
+            console.log('Slider value:', this.value);  // Log slider value
+            chart.data.datasets[0].data[0] = this.value;
+            chart.update();
+            console.log('Dataset data:', chart.data.datasets[0].data);  // Log dataset data
+        }
+    });
+    // var slider = document.getElementById("myRange");
+    // var ctx = document.getElementById('myChart').getContext('2d');
+    // var chart = new Chart(ctx, {
+    //     type: 'bar',
+    //     data: {
+    //         labels: ["Willpower"],
+    //         datasets: [{
+    //             label: "Willpower Rating",
+    //             data: [slider.value],
+    //             backgroundColor: 'rgba(0, 123, 255, 0.5)',
+    //             borderColor: 'rgba(0, 123, 255, 1)',
+    //             borderWidth: 1,
+    //             borderRsdius: 10
+    //         }]
+    //     },
+    //     options: {
+    //         responsive: true,
+    //         maintainAspectRatio: true,
+    //         scales: {
+    //             y: {
+    //                 beginAtZero: true,
+    //                 max: 5,
+    //                 ticks: {
+    //                     stepSize: 1
+    //                 }
+    //             }
+    //         }
+    //     }
+    // });
+
+    // slider.oninput = function() {
+    //     console.log('Slider value:', this.value);  // Log slider value
+    //     chart.data.datasets[0].data[0] = this.value;
+    //     chart.update();
+    //     console.log('Dataset data:', chart.data.datasets[0].data);  // Log dataset data
+    // }
     
+</script>
 {% endblock content %}
     ```
 

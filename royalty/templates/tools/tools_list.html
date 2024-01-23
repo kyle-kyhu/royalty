@@ -5,13 +5,37 @@
 
 {% block content %}
 <h3>tools_list.html</h3>
-<ul>
-    <li><a href="{% url 'tools:willpower' %}">Willpower</a></li>
-    <li><a href="{% url 'tools:flow' %}">Flow</a></li> 
-    <li><a href="{% url 'tools:pressure' %}">Pressure</a></li>
-    <li><a href="{% url 'tools:one_thing' %}">One Thing</a></li>
 
-</ul>
-
+<table>
+    <div class="card">
+        <a href="{% url 'tools:willpower' %}">
+            <h3>Willpower</h3>
+        </a>
+            <p>Willpower is the ability to resist short-term temptations in order to meet long-term goals.</p>
+    </div>
+    <div class="card">
+        <a href="{% url 'tools:flow' %}">
+            <h3>Mental Flow</h3>
+        </a>
+            <p>Flow is the mental sweet spot between challenge and ease. 
+                Work in the flow state should feel engaging. 
+            </p>
+        
+    </div>
+    <div class="card">
+        <a href="{% url 'tools:pressure' %}">
+            <h3>Pressure</h3>
+        </a>
+            <p>When you need a break? And how do you unplug?</p>
+        
+    </div>
+    <div class="card">
+        <a href="{% url 'tools:one_thing' %}">
+            <h3>One Thing</h3>
+        </a>
+            <p>What one thing, if accomplished today, would make today successful?</p>
+        
+    </div>
+</table>
 
 {% endblock content %}

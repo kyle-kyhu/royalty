@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import UpdateView, ListView, TemplateView, CreateView
+from django.views.generic import UpdateView, ListView, TemplateView, CreateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import WillpowerTool, FlowTool, PressureTool, OneThingTool, ToolsList
@@ -18,18 +18,27 @@ class ToolsListView(ListView):
         return context
 
 
-class WillpowerToolView(LoginRequiredMixin,CreateView):
+class WillpowerToolView(LoginRequiredMixin, CreateView):
     model = WillpowerTool
     form_class = WillpowerToolForm
     template_name = 'tools/willpower.html'
-    success_url = reverse_lazy('tools:tools_list')
+    success_url = reverse_lazy('tools:willpower')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['water_level'] = int(self.request.POST.get('rating', 0)) * 20
+        else:
+            context['water_level'] = 0  # Default value
+        return context
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
 
-class WillpowerDetailView(LoginRequiredMixin,CreateView):
+
+class WillpowerDetailView(LoginRequiredMixin,DetailView):
     model = WillpowerTool
     form_class = WillpowerToolForm
     template_name = 'tools/willpower_detail.html'

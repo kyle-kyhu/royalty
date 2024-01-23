@@ -1,5 +1,14 @@
 /* These styles are generated from project.scss. */
 
+.body {
+  background-color: lightgray;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+
 .alert-debug {
   color: black;
   background-color: white;
@@ -12,21 +21,7 @@
   border-color: #eed3d7;
 }
 
-/* form stylings */
-/* .goals-table {
-  margin: 10 auto;
-  width: 100%;
-}
-
-.sub-goals {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.goals-text {
-  width: 15rem;
-  margin: 0 auto;
-} */
+/* form stylings for goals */
 
 .goals-header {
   width: 80%;
@@ -61,11 +56,54 @@
   margin-right: 20px;
 }
 
-/* .goal-text textarea, .goal-amount input {
-  width: 100%;
-} */
+/* form styling for tools  */
 
-/* button {
-  display: block;
-  margin: 20px auto;
-} */
+.card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  width: calc(25% - 20px);
+  box-sizing: border-box;
+  float: left;
+  display: flex;
+}
+.card a {
+  text-decoration: none;
+  color: blue;
+}
+.card:hover {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+.clear {
+  clear: both;
+}
+
+/* willpower tool styling */
+
+.willpower-card {
+  margin: auto;
+}
+
+.willpower-form {
+  margin: 200px;
+  height: 200px;
+  align-items: center;
+  /* margin-left: 20px; */
+}
+
+.willpower-slider {
+  transform: rotate(270deg);
+  height: 150px; 
+  width: 25px;
+}
+
+#myChart {
+  width: 100px;
+  height: 100px;
+}
+
+.willpower-recap {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid red;
+}

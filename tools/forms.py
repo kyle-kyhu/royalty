@@ -13,6 +13,12 @@ class FlowToolForm(forms.ModelForm):
         model = FlowTool
         fields = ('flow_rating', 'description',)
 
+        widgets = {"description": forms.Textarea(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Enter willpower driver here",
+                })}
+
 
 class PressureToolForm(forms.ModelForm):
     class Meta:
