@@ -5,9 +5,102 @@
 {% block content %}
 <h3>flow.html</h3>
 
-<form method="post" action="">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
+<div class="flow-card">
+    <form class="flow-form" method="post" action="">
+        <div class="flow-chart-container">
+            <canvas id="flowChart"></canvas>
+            <div class="slider-container">
+                <input class="slider" type="range" min="1" max="5" value="{{ form.instance.flow_rating }}" id="myRange">
+            </div>
+        </div>
+        {% csrf_token %}
+        <div class="flow-text">
+            <div>Enter Reason</div>
+            {{ form.description }}
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>
+
+
+<!-- here is the javascript for the flow chart -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var dropdown = document.querySelector("#id_flow_rating"); // Update this line
+    var ctx = document.getElementById('flowChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Flow'],
+            datasets: [{
+                label: 'Flow',
+                data: [dropdown.value, 5 - dropdown.value], // Update this line
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 5,
+                    min: 0,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+
+    function updateChart(value) {
+        var color, percentage;
+        switch (value) {
+            case "-2":
+                color = 'red';
+                percentage = 20;
+                break;
+            case "-1":
+                color = 'yellow';
+                percentage = 40;
+                break;
+            case "0":
+                color = 'blue';
+                percentage = 50;
+                break;
+            case "1":
+                color = 'yellow';
+                percentage = 60;
+                break;
+            case "2":
+                color = 'red';
+                percentage = 80;
+                break;
+        }
+        chart.data.datasets[0].data[0] = percentage;
+        chart.data.datasets[0].data[1] = 100 - percentage;
+        chart.data.datasets[0].backgroundColor[0] = color;
+        chart.update();
+    }
+
+    dropdown.onchange = function () { // Update this line
+        updateChart(this.value);
+    }
+
+    // Initial update
+    updateChart(dropdown.value); // Update this line
+});
+
+</script>
+
 {% endblock content %}
+```

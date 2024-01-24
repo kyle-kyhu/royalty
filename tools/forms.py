@@ -7,6 +7,12 @@ class WillpowerToolForm(forms.ModelForm):
         model = WillpowerTool
         fields = ('willpower_rating', 'description',)
 
+        widgets = {"description": forms.Textarea(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Enter willpower driver here",
+                "rows": 1,
+                })}
 
 class FlowToolForm(forms.ModelForm):
     class Meta:
@@ -16,7 +22,8 @@ class FlowToolForm(forms.ModelForm):
         widgets = {"description": forms.Textarea(
             attrs={
                 "class": "form-control",
-                "placeholder": "Enter willpower driver here",
+                "placeholder": "Enter your trigger here",
+                "rows": 1,
                 })}
 
 

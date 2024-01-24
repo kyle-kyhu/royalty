@@ -30,6 +30,10 @@ class WillpowerToolView(LoginRequiredMixin, CreateView):
             context['water_level'] = int(self.request.POST.get('rating', 0)) * 20
         else:
             context['water_level'] = 0  # Default value
+        
+        # add willpower tools to context
+        context['willpowers'] = WillpowerTool.objects.filter(user=self.request.user)
+
         return context
 
     def form_valid(self, form):
@@ -49,7 +53,7 @@ class FlowToolView(LoginRequiredMixin, CreateView):
     model = FlowTool
     form_class = FlowToolForm
     template_name = 'tools/flow.html'
-    success_url = reverse_lazy('tools:tools_list')
+    success_url = reverse_lazy('tools:flow')
 
     def form_valid(self, form):
         form.instance.user = self.request.user

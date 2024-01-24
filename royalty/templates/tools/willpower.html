@@ -152,35 +152,38 @@ here is my attempt to rendor with chart.js
 
 
 <div class="willpower-card">
-        <form class="willpower-form" method="post" action="">
+    <form class="willpower-form" method="post" action="">
+        <div class="willpower-chart-container">
             <canvas id="myChart"></canvas>
-            <span>
+            <div class="slider-container">
                 <input class="slider" type="range" min="1" max="5" value="{{ form.instance.willpower_rating }}" id="myRange">
-            </span>
-            {% csrf_token %}
-            <div class="willpower-text">
-                <div>Enter Reason</div>
-                {{ form.description }}
-                <button type="submit" class="btn btn-primary">Save</button>
             </div>
-        </form>
-</div>  
+        </div>
+        {% csrf_token %}
+        <div class="willpower-text">
+            <div>Enter Reason</div>
+            {{ form.description }}
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>
+
 
 <div class="willpower-recap">
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Willpower Rating</th>
                 <th scope="col">Reason</th>
+                <th scope="col">Willpower Rating</th>
                 <th scope="col">Date</th>
             </tr>
         </thead>
         <tbody>
             {% for willpower in willpowers %}
             <tr>
-                <td>{{ willpower.willpower_rating }}</td>
                 <td>{{ willpower.description }}</td>
-                <td>{{ willpower.date }}</td>
+                <td>{{ willpower.willpower_rating }}</td>
+                <td>{{ willpower.created_at }}</td>
             </tr>
             {% endfor %}
         </tbody>
