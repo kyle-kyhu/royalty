@@ -9,8 +9,8 @@
     <form class="flow-form" method="post" action="">
         <div class="flow-chart-container">
             <canvas id="flowChart"></canvas>
-            <div class="slider-container">
-                <input class="slider" type="range" min="1" max="5" value="{{ form.instance.flow_rating }}" id="myRange">
+            <div class="flow-slider-container">
+                <input class="flow-slider" type="range" min="-2" max="2" value="{{ form.instance.flow_rating }}" id="myRange">
             </div>
         </div>
         {% csrf_token %}
@@ -28,7 +28,7 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    var dropdown = document.querySelector("#id_flow_rating"); // Update this line
+    var dropdown = document.querySelector(".flow-slider");
     var ctx = document.getElementById('flowChart').getContext('2d');
     var chart = new Chart(ctx, {
         type: 'pie',
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
             labels: ['Flow'],
             datasets: [{
                 label: 'Flow',
-                data: [dropdown.value, 5 - dropdown.value], // Update this line
+                data: [dropdown.value, 5 - dropdown.value],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -49,57 +49,44 @@ document.addEventListener("DOMContentLoaded", function () {
             }]
         },
         options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 5,
-                    min: 0,
-                    ticks: {
-                        stepSize: 1
-                    }
-                }
-            }
+            rotation: 0 // Initial rotation
         }
     });
-
     function updateChart(value) {
-        var color, percentage;
+        var percentage, rotation;
         switch (value) {
             case "-2":
-                color = 'red';
-                percentage = 20;
+                percentage = 5;
+                rotation = Math.PI * 57; // 180 degrees
                 break;
             case "-1":
-                color = 'yellow';
-                percentage = 40;
+                percentage = 1.7;
+                rotation = Math.PI * 57; // 180 degrees
                 break;
             case "0":
-                color = 'blue';
-                percentage = 50;
+                percentage = 0;
                 break;
             case "1":
-                color = 'yellow';
-                percentage = 60;
+                percentage = 1.7;
+                rotation = Math.PI * 29; // 180 degrees
                 break;
             case "2":
-                color = 'red';
-                percentage = 80;
+                percentage = 5;
                 break;
         }
+        
+        
         chart.data.datasets[0].data[0] = percentage;
-        chart.data.datasets[0].data[1] = 100 - percentage;
-        chart.data.datasets[0].backgroundColor[0] = color;
+        chart.options.rotation = rotation; // Update rotation
         chart.update();
     }
 
-    dropdown.onchange = function () { // Update this line
+    dropdown.onchange = function () {
         updateChart(this.value);
     }
-
     // Initial update
-    updateChart(dropdown.value); // Update this line
+    updateChart(dropdown.value);
 });
-
 </script>
 
 {% endblock content %}
