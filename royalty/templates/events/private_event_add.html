@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Private Event Add{% endblock title %}
+
+{% block content %}
+<h3>private event add.html</h3>
+<form method="post" action="">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Invite Contributers</button>
+</form>
+{% endblock content %}

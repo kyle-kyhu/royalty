@@ -78,6 +78,9 @@
             </li>
             {% if request.user.is_authenticated %}
             <li class="nav-item">
+              <a class="nav-link" href="{% url 'events:private_event_list' %}">Events</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="{% url 'goals:goals_list' %}">Goals</a>
             </li>
             <li class="nav-item">

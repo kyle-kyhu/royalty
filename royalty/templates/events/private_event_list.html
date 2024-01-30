@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Private Event List{% endblock title %}
+
+{% block content %}
+<h3>private event html</h3>
+<!-- This page will list all private events and the option to add a new private event. -->
+
+
+<a href="{% url 'events:private_event_add' %}" class="btn btn-primary">Add Private Event</a>
+<a href="{% url 'home' %}" class="btn btn-primary">Back</a>
+
+
+<p>List all events</p>
+ {% for private_event in private_events %}
+    <p>{{ private_event.name }}</p>
+    <p>{{ private_event.date }}</p>
+    <p>{{ private_event.time }}</p>
+    <p>{{ private_event.location }}</p>
+    <p>{{ private_event.description }}</p>
+    <p>{{ private_event.method_of_payment }}</p>
+    <p>{{ private_event.amount }}</p>
+
+{% endfor %}
+
+{% endblock content %}
