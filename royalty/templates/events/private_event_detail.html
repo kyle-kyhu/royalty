@@ -3,6 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}Private Event Detail{% endblock title %}
+{% block content %}
 <h3>private event detail.html</h3>
 <form method="post" action="">
     {% csrf_token %}
@@ -10,5 +11,5 @@
     <button type="submit" class="btn btn-primary">Invite</button>
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
-
+<a href="{% url 'events:private_event_detail' private_event.id %}">View Event</a>
 {% endblock content %}

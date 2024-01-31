@@ -12,7 +12,7 @@ class PrivateEventForm(forms.ModelForm):
             'estimated_amount',
             )
         
-class InviteForm(forms.Form):
+class InviteForm(forms.ModelForm):
    class Meta:
        model = InviteEvent
        fields = (
